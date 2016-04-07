@@ -1,3 +1,8 @@
+/* This is an example program from 
+		http://paulbourke.net/miscellaneous/dft/
+*/
+
+
 /*-------------------------------------------------------------------------
    Perform a 2D FFT inplace given a complex 2D array
    The direction dir, 1 for forward, -1 for reverse
