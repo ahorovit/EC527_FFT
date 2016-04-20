@@ -1,7 +1,9 @@
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <math.h> 
+#define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+#define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h" 
 const int N = 128; 
 
@@ -21,7 +23,7 @@ typedef int bool;
 int width, height, bpp; 
 
 
-void FFT(int n, bool inverse, double *gRe, double *gIm, double *GRe, double *GIm, int stride, double factor){
+void FFT(int n, bool inverse, const double *gRe, const double *gIm, double *GRe, double *GIm, int stride, double factor){
 	int m = 0; 
 	int p = 1; 
 
@@ -93,11 +95,36 @@ void FFT(int n, bool inverse, double *gRe, double *gIm, double *GRe, double *GIm
 
 
 }  
-void load(double *fRe, double *rIm){
+
+void FFT2D(int w, int h, bool inverse, const double *gRe, const double *gIm, double *GRe, double *GIm){
+	int val = w * h * 3;
+	double Gr2[val]; 
+	double Gi2[val]; 
+	int y, c; 
+
+	for (y = 0; y < h; y++){
+		for ( c = 0; c < 3; c++){
+			FFT(w, inverse, &gRe[y * w * 3 + c], &gIm[y * w * 3 + c], &Gr2[y * w * 3 + c],  &Gr2[y * w * 3 + c], 3, 1); 	
+			printf("This works %d %d \n", y, c); 
+		} 
+	} 
+	for (y = 0; y < h; y++){
+		for ( c = 0; c < 3; c++){
+			FFT(h, inverse, &Gr2[y * 3 + c], &Gi2[y * 3 + c], &GRe[y  * 3 + c],  &GIm[y * 3 + c], w * 3, inverse ? w : h); 	
+		} 
+	} 
+} 
+void load(double *fRe, double *fIm){
 	unsigned char* data; 
 	//unsigned int* mod; 
 
 	data = stbi_load("test.png", &width, &height, &bpp, STBI_rgb_alpha); 
+
+} 
+void write(char *data, int width, int height, int comp, unsigned int *d){
+//bpp = comp 
+	int res; 
+	res = stbi_write_png("output.png", width, height, comp, d, 0); 
 
 } 
 
@@ -118,11 +145,11 @@ int main(){
 		} 
 
 	} 
-	FFT(N, 0, fRe, fIm, FRe, FIm, 3, 1); 
+	FFT2D(N, N, 0, fRe[0][0], fIm[0][0], FRe[0][0], FIm[0][0]);  
+	load(fRe, fIm); 
 
 
 	//int width, height, bpp; 
-	//printf("This works \n"); 
 	//stbi_image_free(rgb); 
 	return 0; 
 } 
