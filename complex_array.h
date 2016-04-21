@@ -6,8 +6,8 @@ struct ComplexArray {
 	std::complex<T> data[S];
 	std::size_t size = S;
 	
-	std::iterator begin() { return addressof(data[0]); }
+	std::complex<T> * begin() { return addressof(data[0]); }
 	
-	std::iterator end() { return addressof(data[S]); }
+	std::complex<T> * end() { return addressof(data[S]); }
 	
 };
