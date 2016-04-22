@@ -9,7 +9,7 @@ int main(int argc, char *argv[]) {
 	}
 	fft527::complexVector testVec(test, test + SIZE);
 	
-	fft527::complex_array<float, 8> arr;
+	//fft527::complex_array<float, 8> arr;
 	
 	//fft527::dispReal(testVec);
 	

@@ -3,7 +3,7 @@
 #include <iostream>
 
 namespace fft527 {
-	#include "complex_array.h"
+	//#include "complex_array.h"
 	#define PI 3.141592653589793238460
 	#define data_t double
 
