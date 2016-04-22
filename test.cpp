@@ -18,4 +18,8 @@ int main(int argc, char *argv[]) {
 	
 	fft527::fftReverse(testVec);
 	fft527::dispReal(testVec);
+	
+	for (auto & element : arr) {
+		
+	}
 }

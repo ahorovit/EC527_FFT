@@ -1,5 +1,4 @@
 #pragma once
-#include <iterator>
 
 template <typename T, std::size_t S> 
 struct ComplexArray {
@@ -8,6 +7,9 @@ struct ComplexArray {
 	
 	std::complex<T> * begin() { return addressof(data[0]); }
 	
-	std::complex<T> * end() { return addressof(data[S]); }
+	std::complex<T> * end() { return addressof(data[S - 1]); }
 	
+	std::complex<T> * begin() const { return addressof(data[0]); }
+	
+	std::complex<T> * end() const { return addressof(data[S - 1]); }
 };
