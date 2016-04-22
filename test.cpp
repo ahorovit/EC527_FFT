@@ -1,6 +1,6 @@
 #include <iostream>
 #include "fft.hpp"
-#define SIZE 32
+#define SIZE 16
 
 int main(int argc, char *argv[]) {
 	fft527::complex test[SIZE];
@@ -9,17 +9,15 @@ int main(int argc, char *argv[]) {
 	}
 	fft527::complexVector testVec(test, test + SIZE);
 	
-	fft527::ComplexArray<int, 8> arr;
+	fft527::complex_array<float, 8> arr;
 	
-	fft527::dispReal(testVec);
+	//fft527::dispReal(testVec);
 	
 	fft527::fftForward(testVec);
-	fft527::dispComplex(testVec);
+	//fft527::dispComplex(testVec);
 	
 	fft527::fftReverse(testVec);
 	fft527::dispReal(testVec);
 	
-	for (auto & element : arr) {
-		
-	}
+	std::complex<float> f = 1.f;
 }
